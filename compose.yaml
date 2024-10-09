@@ -1,0 +1,17 @@
+services:
+  kinesisapi:
+    container_name: kinesis-api
+    image: kinesis-api-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - TZ=Asia/Tokyo
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AWS_ACCESS_KEY_ID={your_access_key}
+      - AWS_SECRET_ACCESS_KEY={your_secret_key}
+      - AWS_REGION=ap-northeast-1
+    restart: always

@@ -1,0 +1,18 @@
+### post kinesis container
+POST http://localhost:8080/kinesis
+Content-Type: application/json
+
+{
+  "streamName": "{streamName}",
+  "message": "Hello, Kinesis!"
+}
+
+
+### post kinesis local
+POST http://localhost:5199/kinesis
+Content-Type: application/json
+
+{
+  "streamName": "{streamName}",
+  "message": "Hello, Kinesis!"
+}
