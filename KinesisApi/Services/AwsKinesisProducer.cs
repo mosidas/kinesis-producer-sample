@@ -7,13 +7,13 @@ namespace KinesisApi.Services;
 
 public interface IAwsKinesisProducer
 {
-  Task<MessageResponce?> PutRecordAsync(string message, string streamName);
+  Task<MessageResponse?> PutRecordAsync(string message, string streamName);
 }
 
 public class AwsKinesisProducer : IAwsKinesisProducer
 {
   private readonly AmazonKinesisClient _client = new(Amazon.RegionEndpoint.APNortheast1);
-  public async Task<MessageResponce?> PutRecordAsync(string message, string streamName)
+  public async Task<MessageResponse?> PutRecordAsync(string message, string streamName)
   {
     try
     {
@@ -26,8 +26,8 @@ public class AwsKinesisProducer : IAwsKinesisProducer
       };
 
       var response = await _client.PutRecordAsync(record);
-      Console.WriteLine($"Record sent to shard id: {response.ShardId} with sequence number: {response.SequenceNumber}");
-      return new MessageResponce(response.ShardId, response.SequenceNumber);
+      Console.WriteLine($"Record sent to shard id: {response.ShardId} message: '{message}' with sequence number: {response.SequenceNumber}");
+      return new MessageResponse(response.ShardId, response.SequenceNumber);
     }
     catch (Exception ex)
     {
